@@ -26,7 +26,7 @@ def build(key, lt):
         "-I", "./src",
         find_path(key),
         "-o", EXE_DIR + key 
-    ];
+    ]
     if lt == 'l':
         gxx_options.append("./src/common/list.cpp")
     elif lt == 't':
