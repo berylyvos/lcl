@@ -25,7 +25,7 @@ public:
         while (l < r) {
             int mid = (l + r + 1) >> 1;
             if (nums[mid] > target) r = mid - 1;
-            else l = mid; // NOTE! => l + r need +1
+            else l = mid; // NOTE! l = mid => l + r need +1
         }
         res[1] = r;
 
