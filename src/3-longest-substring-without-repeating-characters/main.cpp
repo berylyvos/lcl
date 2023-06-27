@@ -13,10 +13,14 @@ public:
         int res = 0, start = 0;
         for (int i = 0; i < s.size(); ++i) {
             int last = last_idx[s[i]];
-            if (last >= start) start = last + 1;
-            res = max(res, i - start + 1);
+            if (last >= start) {
+                res = max(res, i - start);
+                start = last + 1;
+            }
             last_idx[s[i]] = i;
         }
+
+        res = max(res, (int)s.size() - start);
 
         return res;
     }
