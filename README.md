@@ -1,2 +1,2 @@
 # LCL
-just another ordinary leetcode solution shithole
+Just another ordinary leetcode solution ~~library~~ (shithole)
