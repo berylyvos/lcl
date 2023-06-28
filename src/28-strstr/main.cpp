@@ -9,20 +9,19 @@ class Solution {
 public:
     int strStr(string s, string p) {
         int n = s.size(), m = p.size();
-        s = ' ' + s, p = ' ' + p;
-        vector<int> next(m + 1);
+        vector<int> ne(m);
 
-        // next[0] = next[1] = 0
-        for (int i = 2, j = 0; i <= m; ++ i) {
-            while (j && p[i] != p[j + 1]) j = next[j];
-            if (p[i] == p[j + 1]) ++ j;
-            next[i] = j;
+        ne[0] = -1;
+        for (int i = 1, j = -1; i < m; ++i) {
+            while (~j && p[i] != p[j + 1]) j = ne[j];
+            if (p[i] == p[j + 1]) ++j;
+            ne[i] = j;
         }
 
-        for (int i = 1, j = 0; i <= n; ++ i) {
-            while (j && s[i] != p[j + 1]) j = next[j];
-            if (s[i] == p[j + 1]) ++ j;
-            if (j == m) return i - m;
+        for (int i = 0, j = -1; i < n; ++i) {
+            while (~j && s[i] != p[j + 1]) j = ne[j];
+            if (s[i] == p[j + 1]) ++j;
+            if (j == m - 1) return i - j;
         }
 
         return -1;
