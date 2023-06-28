@@ -5,9 +5,11 @@
 import sys
 import os
 import subprocess
+import shutil
 
 SRC_DIR = "./src/"
 EXE_DIR = "./bin/"
+dSYM    = ".dSYM"
 
 
 def make_build_directory():
@@ -44,6 +46,9 @@ def run(key, lt):
         build(key, lt)
     assert (os.path.isdir(EXE_DIR))
     subprocess.run(EXE_DIR + key)
+    rmdir = EXE_DIR + key + dSYM
+    if os.path.exists(rmdir):
+        shutil.rmtree(rmdir)
 
 
 if __name__ == '__main__':
