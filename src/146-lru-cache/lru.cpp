@@ -47,8 +47,8 @@ public:
 // raw double-linkedlist
 
 struct Node {
-    Node *left, *right;
     int key, val;
+    Node *left, *right;
     Node (int key_, int val_) : key(key_), val(val_), left(nullptr), right(nullptr) {}
 };
 
