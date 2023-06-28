@@ -35,7 +35,7 @@ public:
             cache.emplace_front(key, value);
             cache_loc[key] = cache.begin();
         } else {
-            if (get(key) != -1) {
+            if (get(key) != value) {
                 cache_loc[key]->second = value;
             }
         }
