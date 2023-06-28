@@ -12,32 +12,31 @@ using namespace std;
 class LRUCache {
 private:
     list<pair<int, int>> cache;
-    unordered_map<int, list<pair<int, int>>::iterator> cache_loc;
+    unordered_map<int, list<pair<int, int>>::iterator> loc;
     int capacity_;
 
 public:
     explicit LRUCache(int capacity) : capacity_(capacity) {}
 
     int get(int key) {
-        if (cache_loc.find(key) == cache_loc.end()) {
+        if (loc.find(key) == loc.end()) {
             return -1;
         }
-        cache.splice(cache.cbegin(), cache, cache_loc[key]);
+        cache.splice(cache.cbegin(), cache, loc[key]);
         return cache.cbegin()->second;
     }
 
     void put(int key, int value) {
-        if (cache_loc.find(key) == cache_loc.end()) {
-            if (cache_loc.size() == capacity_) {
-                cache_loc.erase(cache.back().first);
+        if (loc.find(key) == loc.end()) {
+            if (loc.size() == capacity_) {
+                loc.erase(cache.back().first);
                 cache.pop_back();
             }
             cache.emplace_front(key, value);
-            cache_loc[key] = cache.begin();
+            loc[key] = cache.begin();
         } else {
-            if (get(key) != value) {
-                cache_loc[key]->second = value;
-            }
+            cache.splice(cache.cbegin(), cache, loc[key]);
+            loc[key]->second = value;
         }
     }
 };
