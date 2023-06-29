@@ -27,7 +27,7 @@ def build(key, lt):
     make_build_directory()
     gxx_options = [
         "/usr/bin/g++",
-        "-Wall", "-g", "-O2", "-std=c++11",
+        "-Wall", "-g", "-std=c++11",
         "-I", "./src",
         find_path(key),
         "-o", EXE_DIR + key
