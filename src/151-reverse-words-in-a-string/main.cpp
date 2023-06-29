@@ -15,10 +15,9 @@ public:
         for (int i = 0; i < n; ++i) {
             if (s[i] == ' ') continue;
             int j = i, t = k;
-            while (j < n && s[j] != ' ') s[t++] = s[j++];
-            reverse(s.begin() + k, s.begin() + t);
-            s[t++] = ' ';
-            k = t;
+            while (j < n && s[j] != ' ') s[k++] = s[j++];
+            reverse(s.begin() + t, s.begin() + k);
+            s[k++] = ' ';
             i = j;
         }
 
