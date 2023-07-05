@@ -15,7 +15,7 @@ public:
         for (int i = 0; i < n; ++i)
             for (int j = 0; j < m; ++j)
                 if (grid[i][j] == 1) ++fresh;
-                else if (grid[i][j] == 2) q.emplace(i, j, 0);;
+                else if (grid[i][j] == 2) q.emplace(i, j, 0);
         if (fresh == 0) return 0;
         
         while (!q.empty()) {
@@ -27,6 +27,40 @@ public:
                     if (--fresh == 0) return t + 1;
                     grid[a][b] = 2;
                     q.emplace(a, b, t + 1);
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
+
+class Solution2 {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        vector<int> dx{0, 1, 0, -1}, dy{-1, 0, 1, 0};
+        queue<pair<int, int>> q;
+        int n = grid.size(), m = grid[0].size();
+        int fresh = 0, res = 0;
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                if (grid[i][j] == 1) ++fresh;
+                else if (grid[i][j] == 2) q.emplace(i, j);
+        if (fresh == 0) return 0;
+        
+        while (!q.empty()) {
+            ++res;
+            int sz = q.size();
+            while (sz--) {
+                auto [x, y] = q.front();
+                q.pop();
+                for (int i = 0; i < 4; ++i) {
+                    int a = x + dx[i], b = y + dy[i];
+                    if (a >= 0 && a < n && b >= 0 && b < m && grid[a][b] == 1) {
+                        if (--fresh == 0) return res;
+                        grid[a][b] = 2;
+                        q.emplace(a, b);
+                    }
                 }
             }
         }
