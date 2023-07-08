@@ -1,69 +1,52 @@
 #include <iostream>
-#include <cstring>
+#include <vector>
 #include <string>
-#include <queue>
 
 using namespace std;
 
-class Trie {
-private:
-    struct Node {
-        Node *son[26];
-        bool isEnd;
-        Node() {
-            memset(son, 0, sizeof son);
-            isEnd = false;
-        }
-    } *root;
+struct TrieNode {
+    vector<TrieNode*> son;
+    bool isEnd;
+    TrieNode() : isEnd(false), son(26) {}
+};
 
+class Trie {
 public:
     Trie() {
-        root = new Node();
-    }
-
-    ~Trie() {
-        queue<Node*> q;
-        q.push(root);
-        while (q.size()) {
-            auto t = q.front();
-            q.pop();
-            for (int i = 0; i < 26; ++ i)
-                if (t->son[i]) {
-                    q.push(t->son[i]);
-                    t->son[i] = nullptr;
-                }
-            delete t;
-        }
+        root = new TrieNode();
     }
     
     void insert(string word) {
         auto p = root;
         for (auto &c: word) {
-            auto u = c - 'a';
-            if (!p->son[u]) p->son[u] = new Node();
-            p = p->son[u];
+            auto &u = p->son[c - 'a'];
+            if (u == nullptr) 
+                u = new TrieNode();
+            p = u;
         }
         p->isEnd = true;
     }
     
     bool search(string word) {
-        auto p = root;
-        for (auto &c: word) {
-            auto u = c - 'a';
-            if (!p->son[u]) return false;
-            p = p->son[u];
-        }
-        return p->isEnd;
+        auto node = find(word);
+        return node != nullptr && node->isEnd;
     }
     
     bool startsWith(string prefix) {
+        return find(prefix) != nullptr;
+    }
+
+private:
+    TrieNode *root;
+
+    TrieNode* find(const string& s) {
         auto p = root;
-        for (auto &c: prefix) {
-            int u = c - 'a';
-            if (!p->son[u]) return false;
-            p = p->son[u];
+        for (auto &c: s) {
+            auto u = p->son[c - 'a'];
+            if (u == nullptr) return nullptr;
+            p = u;
         }
-        return true;
+        return p;
     }
 };
 
