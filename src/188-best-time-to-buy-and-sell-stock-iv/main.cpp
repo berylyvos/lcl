@@ -1,18 +1,26 @@
 #include <vector>
 using namespace std;
 
+// https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/
+
 // O(kn)
 class Solution3 {
 public:
     int maxProfit(int k, vector<int>& prices) {
         int n = prices.size(), res = 0;
+        if (k >= n / 2) {
+            for (int i = 1; i < n; i++)
+                res += max(0, prices[i] - prices[i - 1]);
+            return res;
+        }
+
         vector<vector<int>> f(n + 1, vector<int>(k + 1, -1e8));
         auto g = f;
         // f[i][j]: 经过 i 天做了 j 笔交易
         // g[i][j]: 经过 i 天正在做第 j 笔交易（已买入，未卖出
         // 
-        //    === -p ===> g
-        // f <=== +p ===
+        //   == -w ===> g
+        // f <== +w ===
         
         f[0][0] = 0;
         for (int i = 1; i <= n; ++i)
