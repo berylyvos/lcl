@@ -12,7 +12,7 @@ public:
         int ans = n;
         for (auto &[x, id]: idx) {
             int sec = 0;
-            for (int i = 0; i < id.size() - 1; ++i) {
+            for (int i = 0, sz = id.size() / 2; i < sz; ++i) {
                 sec = max(sec, (id[i + 1] - id[i]) / 2);
             }
             ans = min(ans, sec);
