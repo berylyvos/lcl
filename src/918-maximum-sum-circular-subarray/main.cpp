@@ -3,6 +3,26 @@ using namespace std;
 
 // https://leetcode.cn/problems/maximum-sum-circular-subarray/
 
+class Solution2 {
+public:
+    // case1: [   |maxSub| ]
+    // case2: [   |minSub| ] maxSub = sum - minSub
+    int maxSubarraySumCircular(vector<int>& nums) {
+        int n = nums.size();
+        int maxSub = nums[0], curMax = 0, minSub = nums[0], curMin = 0, s = 0;
+        for (int &x: nums) {
+            curMax = max(curMax, 0) + x;
+            maxSub = max(maxSub, curMax);
+            curMin = min(curMin, 0) + x;
+            minSub = min(minSub, curMin);
+            s += x;
+        }
+        // corner case : maxSub < 0, meaning all elements < 0, 
+        // maxSub is the biggest negtive number in nums.
+        return maxSub > 0 ? max(maxSub, s - minSub) : maxSub;
+    }
+};
+
 class Solution {
 public:
     // case1: [   |maxSub| ]  LC.53 https://leetcode.cn/problems/maximum-subarray/
