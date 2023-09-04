@@ -1,6 +1,7 @@
 #include <vector>
 #include <unordered_map>
 using namespace std;
+// https://leetcode.cn/problems/minimum-seconds-to-equalize-a-circular-array/
 
 class Solution {
 public:

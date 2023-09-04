@@ -1,6 +1,6 @@
 #include <vector>
 using namespace std;
-// https://leetcode.cn/problems/find-the-longest-equal-subarray/description/
+// https://leetcode.cn/problems/find-the-longest-equal-subarray/
 
 class Solution {
 public:

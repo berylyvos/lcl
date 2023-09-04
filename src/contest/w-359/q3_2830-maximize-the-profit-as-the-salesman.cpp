@@ -1,6 +1,6 @@
 #include <vector>
 using namespace std;
-// https://leetcode.cn/problems/maximize-the-profit-as-the-salesman/description/
+// https://leetcode.cn/problems/maximize-the-profit-as-the-salesman/
 
 class Solution {
 public:

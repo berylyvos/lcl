@@ -2,6 +2,7 @@
 #include <stack>
 #include <unordered_set>
 using namespace std;
+// https://leetcode.cn/problems/maximum-elegance-of-a-k-length-subsequence/
 
 // regret greedy
 class Solution {
