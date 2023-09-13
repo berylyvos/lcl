@@ -2,8 +2,22 @@
 #include <vector>
 using namespace std;
 
+// greedy + STL: O(nlog(n))
+class Solution3 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> q;
+        for (auto &x: nums) {
+            auto it = lower_bound(q.begin(), q.end(), x);
+            if (it == q.end()) q.push_back(x);
+            else *it = x;
+        }
+        return q.size();
+    }
+};
+
 // greedy: O(nlog(n))
-class Solution {
+class Solution2 {
 public:
     int lengthOfLIS(vector<int>& nums) {
         // q[k]: the min element of (k+1)-length increasing subsequence
@@ -28,7 +42,7 @@ public:
 };
 
 // DP: O(n^2)
-class Solution2 {
+class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
