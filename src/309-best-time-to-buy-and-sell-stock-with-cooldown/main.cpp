@@ -6,17 +6,17 @@ using namespace std;
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        const int INF = 1e8;
         int n = prices.size();
-        vector<vector<int>> f(n, vector<int>(3, -INF));
-        // f[i][0]: 冷冻期，f[i][1]: 已买入，f[i][2]: 当天卖出
-        f[0][0] = 0, f[0][1] = -prices[0];
+        // a: 持有
+        // b: 冷冻期/无操作
+        // c: 当天卖出
+        int a = -prices[0], b = 0, c = -1e8, la;
         for (int i = 1; i < n; ++i) {
-            f[i][0] = max(f[i - 1][0], f[i - 1][2]);
-            f[i][1] = max(f[i - 1][0] - prices[i], f[i - 1][1]);
-            f[i][2] = f[i - 1][1] + prices[i];
+            la = a;
+            a = max(b - prices[i], a);
+            b = max(b, c);
+            c = la + prices[i];
         }
-        
-        return max(f[n - 1][0], max(f[n - 1][1], f[n - 1][2]));
+        return max(a, max(b, c));
     }
 };
