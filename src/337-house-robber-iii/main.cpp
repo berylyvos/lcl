@@ -5,16 +5,17 @@ using namespace std;
 
 class Solution {
 public:
-    // <偷当前节点，不偷当前节点>
-    pair<int, int> dfs(TreeNode *cur) {
-        if (!cur) return {0, 0};
-        auto l = dfs(cur->left), r = dfs(cur->right);
-        return make_pair(cur->val + l.second + r.second, max(l.first, l.second) + max(r.first, r.second));
+    // <不偷当前节点，偷...>
+    pair<int, int> dfs(TreeNode* t) {
+        if (!t) return {0, 0};
+        auto [l1, l2] = dfs(t->left);
+        auto [r1, r2] = dfs(t->right);
+        return {max(l1, l2) + max(r1, r2), t->val + l1 + r1};
     }
 
     int rob(TreeNode* root) {
-        auto res = dfs(root);
-        return max(res.first, res.second);
+        auto [a, b] = dfs(root);
+        return max(a, b);
     }
 };
 
