@@ -12,8 +12,7 @@ public:
         int f[m + 1][n + 1];
         memset(f, 0, sizeof(f));
         for (auto& s: strs) {
-            int c0 = count(s.begin(), s.end(), '0');
-            int c1 = count(s.begin(), s.end(), '1');
+            int c0 = count(s.begin(), s.end(), '0'), c1 = s.size() - c0;
             for (int i = m; i >= c0; --i)
                 for (int j = n; j >= c1; --j)
                     f[i][j] = max(f[i][j], f[i - c0][j - c1] + 1);
