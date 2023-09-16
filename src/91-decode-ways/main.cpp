@@ -1,23 +1,20 @@
 #include <cstdio>
 #include <vector>
 #include <string>
-
 using namespace std;
+// https://leetcode.cn/problems/decode-ways/
 
 class Solution {
 public:
     int numDecodings(string s) {
+        if (s[0] == '0') return 0;
         int n = s.size();
         s = ' ' + s;
         vector<int> f(n + 1);
-        f[0] = 1;
-        for (int i = 1; i <= n; ++ i) {
-            int num = s[i] - '0';
-            if (num != 0) f[i] = f[i - 1]; // 当前字母单独解码
-            if (i > 1 && s[i - 1] != '0') {
-                num = (s[i - 1] - '0') * 10 + num;
-                if (num <= 26) f[i] += f[i - 2]; // 当前字母和前一个字母合起来解码
-            }
+        f[0] = 1, f[1] = 1;
+        for (int i = 2; i <= n; ++i) {
+            if (s[i] != '0') f[i] = f[i - 1];
+            if ((s[i - 1] == '1') || (s[i - 1] == '2' && s[i] <= '6')) f[i] += f[i - 2];
         }
         return f[n];
     }
